@@ -1,27 +1,46 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <ctime>
 
-// A simple simulation of a C++ Backend for my personal website
-class SimpleServer {
+// Simulating a database for blog posts
+struct Post {
+    int id;
+    std::string title;
+    std::string date;
+};
+
+class PersonalWebsiteBackend {
+private:
+    std::string serverName = "Jinguji_Server_v1.0";
+    std::vector<Post> blogPosts;
+
 public:
-    void start(int port) {
-        std::cout << "Starting server on port " << port << "..." << std::endl;
-        std::cout << "Personal Website Backend is running." << std::endl;
-        std::cout << "Visit http://localhost:" << port << " to view content." << std::endl;
+    PersonalWebsiteBackend() {
+        // Pre-load some sample data
+        blogPosts.push_back({1, "My First VR Experience", "2026-02-01"});
+        blogPosts.push_back({2, "C++ Backend Learning Journey", "2026-02-05"});
     }
 
-    void handleRequest(std::string path) {
-        if (path == "/") {
-            std::cout << "Handling Home request" << std::endl;
-        } else if (path == "/about") {
-            std::cout << "Handling About request" << std::endl;
+    void start(int port) {
+        std::cout << "[" << serverName << "] Initializing components..." << std::endl;
+        std::cout << "[" << serverName << "] Database connected." << std::endl;
+        std::cout << "[" << serverName << "] Server started on port: " << port << std::endl;
+    }
+
+    void listPosts() {
+        std::cout << "\n--- Current Blog Posts ---" << std::endl;
+        for (const auto& post : blogPosts) {
+            std::cout << "ID: " << post.id << " | Title: " << post.title << " | Date: " << post.date << std::endl;
         }
     }
 };
 
 int main() {
-    SimpleServer server;
-    server.start(8080);
-    server.handleRequest("/");
+    PersonalWebsiteBackend site;
+    site.start(80); // Using standard HTTP port
+    site.listPosts();
+    
+    std::cout << "\nServer is now waiting for incoming connections..." << std::endl;
     return 0;
 }
