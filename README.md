@@ -14,3 +14,4 @@ I am developing this project to host my personal blog and portfolio. I plan to u
 ```bash
 g++ main.cpp -o server
 ./server
+Last updated: 2026-02-05。
